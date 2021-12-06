@@ -1,0 +1,77 @@
+@mixin box-shadow($color) {
+  box-shadow: 4px 4px 4px 1px rgba($color: $color, $alpha: 0.6);
+}
+
+@mixin make-bold($bool) {
+  @if bool == true {
+    font-weight: bold;
+  }
+}
+
+@mixin text-effect($val) {
+  @if $val == danger {
+    color: red;
+  } @else if $val == alert {
+    color: yellow;
+  } @else {
+    color: #000;
+  }
+}
+
+.container {
+  @include box-shadow(rgba(0, 0, 0, 0.6));
+  @include make-bold(false);
+  $text-color2: #f0f0;
+  width: 200px;
+  height: 200px;
+  background-color: #fff;
+  color: white;
+
+  p {
+    @include box-shadow(rgba(0, 0, 0, 0.6));
+    @include make-bold(true);
+    @include text-effect(alert);
+    width: 100px;
+    height: 100px;
+    background-color: gray;
+  }
+}
+
+@for $i from 1 through 5 {
+  .text-#{$i} {
+    font-size: 15px * $i;
+  }
+}
+
+$colors: (
+  color1: blue,
+  color2: red,
+  color3: yellow,
+  color4: gray,
+  color5: green,
+);
+
+@each $key, $color in $colors {
+  .#{$color}-text {
+    color: $color;
+  }
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+body {
+  @extend .flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+p {
+  cursor: pointer;
+  &:hover {
+    color: blue;
+  }
+}
